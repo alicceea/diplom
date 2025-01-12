@@ -2,8 +2,8 @@ import allure
 from allure_commons.types import Severity
 from selene import browser
 
-from livejournal.web.data.test_objects import dog_post, cat_post
-from livejournal.web.pages.pages import PagePost
+from livejournal.data.test_objects import dog_post, cat_post
+from livejournal.pages.pages import PagePost
 
 page_post = PagePost(browser)
 post_info_create = dog_post()

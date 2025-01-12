@@ -3,7 +3,8 @@ from time import sleep
 from selene import be, have, Browser
 from selenium.webdriver import Keys
 
-from livejournal.utils.util import Configure
+from livejournal.utils.util import ConfigureLJ
+
 
 # document.evaluate('//*[@data-rd-type="rd-post-actions-popup"]/div/button', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.click()
 
@@ -15,7 +16,7 @@ class PageHandler:
 
     def open_profile(self):
         self.browser.open('/')
-        sleep(Configure.sleep_wait_medium)
+        sleep(ConfigureLJ.sleep_wait_medium)
 
 
 class PagePost(PageHandler):
@@ -52,17 +53,17 @@ class PagePost(PageHandler):
     def make_save_post(self):
         self.browser.element('//span[text() = "Настроить и опубликовать"]').click()
         self.browser.element('//span[text() = "Опубликовать"]').click()
-        sleep(Configure.sleep_wait_medium)
+        sleep(ConfigureLJ.sleep_wait_medium)
 
     def make_update_post(self):
         self.browser.element('//span[text() = "Настроить и обновить"]').click()
         self.browser.element('//span[text() = "Обновить"]').click()
-        sleep(Configure.sleep_wait_medium)
+        sleep(ConfigureLJ.sleep_wait_medium)
 
     def make_delete_post(self):
         self.browser.element('//a[text() ="Удалить пост"]').click()
         self.browser.element('//span[text() = "Удалить"]').click()
-        sleep(Configure.sleep_wait_medium)
+        sleep(ConfigureLJ.sleep_wait_medium)
 
     def fill_post(self, post):
         self.browser.element('//*[@placeholder="Придумайте заголовок"]').type(post.title)
@@ -77,11 +78,11 @@ class PagePost(PageHandler):
 
     def open_post_creation(self):
         self.browser.element('//*[@class="s-header-item-post--long"]/parent::*').click()
-        sleep(Configure.sleep_wait_short)
+        sleep(ConfigureLJ.sleep_wait_short)
 
     def open_post_by_uuid(self, uuid):
         self.browser.element(f'//a[text()[contains(.,"{uuid}")]]').click()
-        sleep(Configure.sleep_wait_short)
+        sleep(ConfigureLJ.sleep_wait_short)
 
     def edit_post(self):
         self.browser.element('//*[@data-rd-type="rd-post-actions-popup"]/div/button').click()

@@ -1,0 +1,77 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "choices": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "message": {
+              "type": "object",
+              "properties": {
+                "content": {
+                  "type": "string"
+                },
+                "role": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "content",
+                "role"
+              ]
+            },
+            "index": {
+              "type": "integer"
+            },
+            "finish_reason": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "message",
+            "index",
+            "finish_reason"
+          ]
+        }
+      ]
+    },
+    "created": {
+      "type": "integer"
+    },
+    "model": {
+      "type": "string"
+    },
+    "object": {
+      "type": "string"
+    },
+    "usage": {
+      "type": "object",
+      "properties": {
+        "prompt_tokens": {
+          "type": "integer"
+        },
+        "completion_tokens": {
+          "type": "integer"
+        },
+        "total_tokens": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "prompt_tokens",
+        "completion_tokens",
+        "total_tokens"
+      ]
+    }
+  },
+  "required": [
+    "choices",
+    "created",
+    "model",
+    "object",
+    "usage"
+  ]
+}

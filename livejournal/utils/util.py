@@ -1,10 +1,11 @@
 import os
+
 from dotenv import load_dotenv
 
 load_dotenv()
 
 
-class Configure:
+class ConfigureLJ:
     username = os.getenv('lj_username')
     password = os.getenv('lj_password')
     sleep_wait_medium = 3
