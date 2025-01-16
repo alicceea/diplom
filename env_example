@@ -1,2 +1,12 @@
-lj_username=
+is_local=true
+
 lj_password=
+lj_username=
+
+giga_chat_use_token=
+giga_chat_auth=
+giga_chat_token=
+
+selenoid_login=
+selenoid_pass=
+selenoid_uri=

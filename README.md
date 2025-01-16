@@ -1,13 +1,13 @@
 ### Дипломный проект с автотестами Sela, LiveJournal, Gigachat API
 
 
-<img src="/media/demo.png">
+<img src="resources/media/demo.png" alt="/">
 
 ### Используемые инструменты
 
 | Python                                                            | Pycharm                                                            | GitHub                                                     | Selenium                                                     | Allure                                                     | Jenkins                                                     |                                                  
 |:------------------------------------------------------------------|--------------------------------------------------------------------|------------------------------------------------------------|--------------------------------------------------------------|------------------------------------------------------------|-------------------------------------------------------------|
-| <img height="50" src="media/icons/python.png" width="50"/> | <img height="50" src="media/icons/pycharm.png" width="50"/> | <img height="50" src="media/icons/github.png" width="50"/>  | <img height="50" src="media/icons/selenium.png" width="50"/> | <img height="50" src="media/icons/allure.png" width="50"/> | <img height="50" src="media/icons/jenkins.png" width="50"/> | 
+| <img height="50" src="resources/media/icons/python.png" width="50"/> | <img height="50" src="resources/media/icons/pycharm.png" width="50"/> | <img height="50" src="resources/media/icons/github.png" width="50"/>  | <img height="50" src="resources/media/icons/selenium.png" width="50"/> | <img height="50" src="resources/media/icons/allure.png" width="50"/> | <img height="50" src="resources/media/icons/jenkins.png" width="50"/> | 
 
 ### Автотесты
 
@@ -31,24 +31,18 @@ Sela.UI:
 
 Добавлен отчет о прохождении автотестов
 
-<img src="/media/allurereport.png">
+<img src="resources/media/allurereport.png" alt="/">
 
 К тестам приложены артефакты: screenshot, video, page source
 
-<img src="/media/allurereport2.png">
+<img src="resources/media/allurereport2.png">
 
 ### Jenkins
 
 Для запуска автотестов в Jenkins была настроена конфигурация
 
-<img src="/media/config.png">
+<img src="resources/media/config.png" alt="/">
 
 Для запуска автотестов в Jenkins нужно нажать на Build Now
 
-<img src="/media/tests.png">
-
-### Telegram
-
-Отчет о пройденных тестах приходит в Telegram:
-
-<img src="/media/tg.png">
+<img src="resources/media/tests.png" alt="/">

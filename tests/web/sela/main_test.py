@@ -78,34 +78,3 @@ def test_add_any_cloth_to_favorites():
         page_sela.assert_cloth_bu_id_in_favorites(favorite_id)
 
     print(favorites_ids)
-
-
-
-
-@allure.tag("critical")
-@allure.severity(Severity.CRITICAL)
-@allure.label("owner", "alice")
-@allure.feature('Diplom project')
-@allure.title("Пользователь добавляет 3 первых товара в корзину ")
-def test_add_any_cloth_to_cart():
-    favorites_ids = []
-    page_sela.open_main_page()
-    page_sela.choose_recommended_city_modal()
-
-    page_sela.click_tab_baby()
-    page_sela.open_babies_clothes_page()
-
-    page_sela.assert_babies_clothes_page()
-
-    for i in range(1, 4):
-        favorites_ids.append(
-            page_sela.add_cloth_to_cart(i)
-        )
-
-    page_sela.open_favorites()
-    page_sela.assert_favorites_page()
-
-    for favorite_id in favorites_ids:
-        page_sela.assert_cloth_bu_id_in_favorites(favorite_id)
-
-    print(favorites_ids)

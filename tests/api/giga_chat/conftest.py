@@ -30,6 +30,7 @@ def get_giga_token_headers():
     response = requests.request("POST", url=ConfigureGigaChat.giga_chat_auth_url, headers=headers, data=payload,
                                 verify=False)
     token = response.json()['access_token']
+    print("token: " + token)
     return {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
