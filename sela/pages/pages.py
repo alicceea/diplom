@@ -8,6 +8,7 @@ from sela.utils.util import ConfigureSela
 products_list = '//div[@id="products_list"]'
 card = products_list + '/ul/li[{number}]'
 favorite_button = card + '//button[contains(@class, "product-card__favorite")]'
+add_to_cart_button = '//button[contains(@class, "product-card__title")]'
 
 
 # document.evaluate('//*[@id="popmechanic-snippet"]//*[@data-popmechanic-close]', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.click()
@@ -73,6 +74,7 @@ class PageSela:
         except Exception as e:
             print(e)
 
+
     def add_cloth_to_favorites(self, number):
         with allure.step("Пользователь добавляет товар в избранное"):
             self.browser.element(favorite_button.format(number=number)).click()
@@ -90,3 +92,10 @@ class PageSela:
     def assert_cloth_bu_id_in_favorites(self, favorite_id):
         with allure.step("Проверка товара в избранном"):
             self.browser.element(products_list + f'//button[@data-product_id="{favorite_id}"]').should(be.existing)
+
+
+    def add_cloth_to_cart(self, number):
+        with allure.step("Пользователь добавляет товар в корзину"):
+            self.browser.element(add_to_cart_button.format(number=number)).click()
+            sleep(ConfigureSela.sleep_wait_short)
+            return self.browser.element(add_to_cart_button.format(number=number)).get(query.attribute("data-product_id"))
