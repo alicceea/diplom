@@ -1,112 +1,92 @@
 from time import sleep
 
 import allure
-from selene import be, have, Browser
-from selenium.webdriver import Keys
+from selene import Browser, have, query, be
 
-from livejournal.utils.util import ConfigureLJ
+from sela.utils.util import ConfigureSela
+
+products_list = '//div[@id="products_list"]'
+card = products_list + '/ul/li[{number}]'
+favorite_button = card + '//button[contains(@class, "product-card__favorite")]'
 
 
-# document.evaluate('//*[@data-rd-type="rd-post-actions-popup"]/div/button', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.click()
+# document.evaluate('//*[@id="popmechanic-snippet"]//*[@data-popmechanic-close]', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.click()
 
-class PageHandler:
-    browser: Browser
+class PageSela:
 
-    def __init__(self, browser):
+    def __init__(self, browser: Browser):
         self.browser = browser
 
-    @allure.step("Пользователь открывает свою страницу ")
-    def open_profile(self):
+    @allure.step("Пользователь открывает главную страницу")
+    def open_main_page(self):
         self.browser.open('/')
-        sleep(ConfigureLJ.sleep_wait_medium)
+        sleep(ConfigureSela.sleep_wait_medium)
 
-
-class PagePost(PageHandler):
-
-    def create_post(self, post):
-        with allure.step("Пользователь нажимает кнопку создания"):
-            self.open_post_creation()
-            self.close_draft_modal()
-        with allure.step("Пользователь заполняет форму создания"):
-            self.fill_post(post)
-        with allure.step("Пользователь сохранияет пост"):
-            self.make_save_post()
-
-    def update_post(self, old_uuid, post):
-        with allure.step("Пользователь открывает пост по UUID"):
-            self.open_post_by_uuid(old_uuid)
-        with allure.step("Пользователь нажимает кнопку изменения"):
-            self.edit_post()
-            self.close_draft_modal()
-        with allure.step("Пользователь очищает форму изменения"):
-            self.clear_post()
-        with allure.step("Пользователь заполняет форму изменения"):
-            self.fill_post(post)
-        with allure.step("Пользователь нажимает кнопку обновления"):
-            self.make_update_post()
-
-    def delete_post(self, uuid):
-        with allure.step("Пользователь открывает пост по UUID"):
-            self.open_post_by_uuid(uuid)
-        with allure.step("Пользователь нажимает кнопку изменения"):
-            self.edit_post()
-            self.close_draft_modal()
-        with allure.step("Пользователь нажимает кнопку удаления"):
-            self.make_delete_post()
-
-    def assert_post_page(self, post):
-        with allure.step("Проверка ожидаемых данных поста"):
-            self.browser.element('//*[@class="aentry-post__title-text"]').should(have.exact_text(post.title))
-            self.browser.element('//*[@class="aentry-post__content"]').should(have.text(post.uuid))
-
-    def assert_have_post(self, post):
-        with allure.step("Проверка наличия поста на странице пользователя"):
-            self.browser.element(f'//a[text() = "{post.title}"]').should(be.existing)
-
-    def assert_have_not_post(self, post):
-        with allure.step("Проверка отсутствия поста на странице пользователя"):
-            self.browser.element(f'//a[text() = "{post.title}"]').should(be.not_.existing)
-
-    def make_save_post(self):
-        self.browser.element('//span[text() = "Настроить и опубликовать"]').click()
-        self.browser.element('//span[text() = "Опубликовать"]').click()
-        sleep(ConfigureLJ.sleep_wait_medium)
-
-    def make_update_post(self):
-        self.browser.element('//span[text() = "Настроить и обновить"]').click()
-        self.browser.element('//span[text() = "Обновить"]').click()
-        sleep(ConfigureLJ.sleep_wait_medium)
-
-    def make_delete_post(self):
-        self.browser.element('//a[text() ="Удалить пост"]').click()
-        self.browser.element('//span[text() = "Удалить"]').click()
-        sleep(ConfigureLJ.sleep_wait_medium)
-
-    def fill_post(self, post):
-        self.browser.element('//*[@placeholder="Придумайте заголовок"]').type(post.title)
-        self.browser.element('//div[@class="notranslate public-DraftEditor-content"]') \
-            .send_keys(post.content)
-
-    def clear_post(self):
-        self.browser.element('//*[@placeholder="Придумайте заголовок"]').set_value('')
-        self.browser.element('//div[@class="notranslate public-DraftEditor-content"]') \
-            .send_keys(Keys.CONTROL + "a") \
-            .send_keys(Keys.BACKSPACE)
-
-    def open_post_creation(self):
-        self.browser.element('//*[@class="s-header-item-post--long"]/parent::*').click()
-        sleep(ConfigureLJ.sleep_wait_short)
-
-    def open_post_by_uuid(self, uuid):
-        self.browser.element(f'//a[text()[contains(.,"{uuid}")]]').click()
-        sleep(ConfigureLJ.sleep_wait_short)
-
-    def edit_post(self):
-        self.browser.element('//*[@data-rd-type="rd-post-actions-popup"]/div/button').click()
-        self.browser.element('//span[text() = "Редактировать запись"]').click()
-
-    def close_draft_modal(self):
+    @allure.step("Пользователь выбирает предложенный город")
+    def choose_recommended_city_modal(self):
         try:
-            self.browser.element('//span[text() = "Нет, спасибо"]').click()
+            self.browser.element('//*[@class="js-choice-city-close-popup city-isset"]').click()
+            sleep(ConfigureSela.sleep_wait_short)
         except Exception as e:
-            print("Попытка закрытия модального окна завершилась с ошибкой", e)
+            print(e)
+
+    @allure.step("Пользователь открывает вкладку 'Малыши'")
+    def click_tab_baby(self):
+        self.browser.element('//*[@data-tab="baby"]').click()
+        sleep(ConfigureSela.sleep_wait_short)
+
+    @allure.step("Пользователь открывает вкладку 'Мужчины'")
+    def click_tab_men(self):
+        self.browser.element('//*[@data-tab="men"]').click()
+        sleep(ConfigureSela.sleep_wait_short)
+
+    @allure.step("Пользователь открывает вкладку 'Женщины'")
+    def click_tab_women(self):
+        self.browser.element('//*[@data-tab="women"]').click()
+        sleep(ConfigureSela.sleep_wait_short)
+
+    @allure.step("Пользователь открывает вкладку 'Мальчики'")
+    def click_tab_boys(self):
+        self.browser.element('//*[@data-tab="boy"]').click()
+        sleep(ConfigureSela.sleep_wait_short)
+
+    @allure.step("Пользователь открывает вкладку 'Девочки'")
+    def click_tab_girls(self):
+        self.browser.element('//*[@data-tab="girl"]').click()
+        sleep(ConfigureSela.sleep_wait_short)
+
+    @allure.step("Пользователь нажимает на кнопку 'Смотреть всё'")
+    def open_babies_clothes_page(self):
+        self.browser.element('//*[@id="menu_tab-baby"]//a[text() = "Смотреть всё"]').click()
+        sleep(ConfigureSela.sleep_wait_medium)
+
+    @allure.step("Пользователь нажимает на кнопку 'Избранное'")
+    def open_favorites(self):
+        self.browser.element('#header_user_menu_favorite_link').click()
+        sleep(ConfigureSela.sleep_wait_medium)
+
+    #
+    @allure.step("Пользователь закрывает модальное окно")
+    def close_annoying_modal(self):
+        try:
+            self.browser.element('//*[@id="popmechanic-snippet"]//*[@data-popmechanic-close]').click()
+        except Exception as e:
+            print(e)
+
+    def add_cloth_to_favorites(self, number):
+        with allure.step("Пользователь добавляет товар в избранное"):
+            self.browser.element(favorite_button.format(number=number)).click()
+            sleep(ConfigureSela.sleep_wait_short)
+            return self.browser.element(favorite_button.format(number=number)).get(query.attribute("data-product_id"))
+
+    @allure.step("Проверка заголовка на странице Малыши")
+    def assert_babies_clothes_page(self):
+        self.browser.element('//h1[@data-title="Малыши"]').should(have.exact_text("ОДЕЖДА ДЛЯ МАЛЫШЕЙ"))
+
+    @allure.step("Проверка заголовка на странице Избранное")
+    def assert_favorites_page(self):
+        self.browser.element('//h1[@data-title="Избранное"]').should(have.exact_text("ИЗБРАННОЕ"))
+
+    def assert_cloth_bu_id_in_favorites(self, favorite_id):
+        with allure.step("Проверка товара в избранном"):
+            self.browser.element(products_list + f'//button[@data-product_id="{favorite_id}"]').should(be.existing)

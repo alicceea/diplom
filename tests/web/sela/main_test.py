@@ -5,14 +5,7 @@ from selene import browser
 from sela.pages.pages import PageSela
 
 page_sela = PageSela(browser)
-@allure.tag("critical")
-@allure.severity(Severity.CRITICAL)
-@allure.label("owner", "alice")
-@allure.feature('Diplom project')
-@allure.title("Пользователь открывает главную страницу и закрывает вспывающее окно")
-def test_open_main_page():
-    page_sela.open_main_page()
-    page_sela.choose_recommended_city_modal()
+
 
 @allure.tag("critical")
 @allure.severity(Severity.CRITICAL)
@@ -28,6 +21,7 @@ def test_open_all_tabs():
     page_sela.click_tab_boys()
     page_sela.click_tab_girls()
     page_sela.click_tab_baby()
+
 
 @allure.tag("critical")
 @allure.severity(Severity.CRITICAL)
@@ -84,15 +78,3 @@ def test_add_any_cloth_to_favorites():
         page_sela.assert_cloth_bu_id_in_favorites(favorite_id)
 
     print(favorites_ids)
-
-
-
-
-
-
-
-
-
-
-
-

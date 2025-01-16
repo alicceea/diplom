@@ -1,5 +1,6 @@
 from time import sleep
 
+import allure
 from selene import be, have, Browser
 from selenium.webdriver import Keys
 
@@ -14,41 +15,57 @@ class PageHandler:
     def __init__(self, browser):
         self.browser = browser
 
+    @allure.step("Пользователь открывает свою страницу ")
     def open_profile(self):
         self.browser.open('/')
         sleep(ConfigureLJ.sleep_wait_medium)
 
 
 class PagePost(PageHandler):
+
     def create_post(self, post):
-        self.open_post_creation()
-        self.close_draft_modal()
-        self.fill_post(post)
-        self.make_save_post()
+        with allure.step("Пользователь нажимает кнопку создания"):
+            self.open_post_creation()
+            self.close_draft_modal()
+        with allure.step("Пользователь заполняет форму создания"):
+            self.fill_post(post)
+        with allure.step("Пользователь сохранияет пост"):
+            self.make_save_post()
 
     def update_post(self, old_uuid, post):
-        self.open_post_by_uuid(old_uuid)
-        self.edit_post()
-        self.close_draft_modal()
-        self.clear_post()
-        self.fill_post(post)
-        self.make_update_post()
+        with allure.step("Пользователь открывает пост по UUID"):
+            self.open_post_by_uuid(old_uuid)
+        with allure.step("Пользователь нажимает кнопку изменения"):
+            self.edit_post()
+            self.close_draft_modal()
+        with allure.step("Пользователь очищает форму изменения"):
+            self.clear_post()
+        with allure.step("Пользователь заполняет форму изменения"):
+            self.fill_post(post)
+        with allure.step("Пользователь нажимает кнопку обновления"):
+            self.make_update_post()
 
     def delete_post(self, uuid):
-        self.open_post_by_uuid(uuid)
-        self.edit_post()
-        self.close_draft_modal()
-        self.make_delete_post()
+        with allure.step("Пользователь открывает пост по UUID"):
+            self.open_post_by_uuid(uuid)
+        with allure.step("Пользователь нажимает кнопку изменения"):
+            self.edit_post()
+            self.close_draft_modal()
+        with allure.step("Пользователь нажимает кнопку удаления"):
+            self.make_delete_post()
 
     def assert_post_page(self, post):
-        self.browser.element('//*[@class="aentry-post__title-text"]').should(have.exact_text(post.title))
-        self.browser.element('//*[@class="aentry-post__content"]').should(have.text(post.uuid))
+        with allure.step("Проверка ожидаемых данных поста"):
+            self.browser.element('//*[@class="aentry-post__title-text"]').should(have.exact_text(post.title))
+            self.browser.element('//*[@class="aentry-post__content"]').should(have.text(post.uuid))
 
     def assert_have_post(self, post):
-        self.browser.element(f'//a[text() = "{post.title}"]').should(be.existing)
+        with allure.step("Проверка наличия поста на странице пользователя"):
+            self.browser.element(f'//a[text() = "{post.title}"]').should(be.existing)
 
     def assert_have_not_post(self, post):
-        self.browser.element(f'//a[text() = "{post.title}"]').should(be.not_.existing)
+        with allure.step("Проверка отсутствия поста на странице пользователя"):
+            self.browser.element(f'//a[text() = "{post.title}"]').should(be.not_.existing)
 
     def make_save_post(self):
         self.browser.element('//span[text() = "Настроить и опубликовать"]').click()

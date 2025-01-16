@@ -1,16 +1,28 @@
-
 import pytest
 import requests
+from dotenv import load_dotenv
 
 from giga_chat.util.util import ConfigureGigaChat
 
 
-@pytest.fixture(scope='package', autouse=True)
+@pytest.fixture(scope='session', autouse=True)
+def load_env():
+    load_dotenv()
+
+
+@pytest.fixture(scope='session', autouse=True)
 def headers():
     return get_giga_token_headers()
 
 
 def get_giga_token_headers():
+    if ConfigureGigaChat.giga_chat_use_token:
+        return {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': f'Bearer {ConfigureGigaChat.giga_chat_token}'
+        }
+
     payload = {
         'scope': 'GIGACHAT_API_PERS'
     }
@@ -21,7 +33,8 @@ def get_giga_token_headers():
         'Authorization': f'Basic {ConfigureGigaChat.giga_chat_auth}'
     }
 
-    response = requests.request("POST", url=ConfigureGigaChat.giga_chat_auth_url, headers=headers, data=payload, verify=False)
+    response = requests.request("POST", url=ConfigureGigaChat.giga_chat_auth_url, headers=headers, data=payload,
+                                verify=False)
     token = response.json()['access_token']
     print(token)
     return {
