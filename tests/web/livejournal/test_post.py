@@ -4,6 +4,7 @@ from selene import browser
 
 from livejournal.data.test_objects import dog_post, cat_post
 from livejournal.pages.pages import PagePost
+from tests.util.config import is_local_run
 
 page_post = PagePost(browser)
 post_info_create = dog_post()
@@ -16,6 +17,10 @@ post_info_update = cat_post()
 @allure.feature('Diplom project')
 @allure.title("Пользователь создает пост")
 def test_create_post(add_login):
+    if not is_local_run():
+        page_post.skip_test()
+        return
+
     page_post.open_profile()
     page_post.create_post(post_info_create)
 
@@ -28,6 +33,10 @@ def test_create_post(add_login):
 @allure.feature('Diplom project')
 @allure.title("Пользователь редактирует пост")
 def test_update_post(add_login):
+    if not is_local_run():
+        page_post.skip_test()
+        return
+
     page_post.open_profile()
     page_post.assert_have_post(post_info_create)
 
@@ -42,6 +51,10 @@ def test_update_post(add_login):
 @allure.feature('Diplom project')
 @allure.title("Пользователь удаляет пост")
 def test_delete_post(add_login):
+    if not is_local_run():
+        page_post.skip_test()
+        return
+
     page_post.open_profile()
     page_post.assert_have_not_post(post_info_create)
     page_post.assert_have_post(post_info_update)
