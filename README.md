@@ -5,9 +5,9 @@
 
 ### Используемые инструменты
 
-| Python                                                            | Pycharm                                                            | GitHub                                                     | Selenium                                                     | Allure                                                     | Jenkins                                                     |                                                  
-|:------------------------------------------------------------------|--------------------------------------------------------------------|------------------------------------------------------------|--------------------------------------------------------------|------------------------------------------------------------|-------------------------------------------------------------|
-| <img height="50" src="resources/media/icons/python.png" width="50"/> | <img height="50" src="resources/media/icons/pycharm.png" width="50"/> | <img height="50" src="resources/media/icons/github.png" width="50"/>  | <img height="50" src="resources/media/icons/selenium.png" width="50"/> | <img height="50" src="resources/media/icons/allure.png" width="50"/> | <img height="50" src="resources/media/icons/jenkins.png" width="50"/> | 
+| Python                                                               | Pycharm                                                               | GitHub                                                               | Selenium                                                               | Allure                                                               | Jenkins                                                               |                                                  
+|:---------------------------------------------------------------------|-----------------------------------------------------------------------|----------------------------------------------------------------------|------------------------------------------------------------------------|----------------------------------------------------------------------|-----------------------------------------------------------------------|
+| <img height="50" src="resources/media/icons/python.png" width="50"/> | <img height="50" src="resources/media/icons/pycharm.png" width="50"/> | <img height="50" src="resources/media/icons/github.png" width="50"/> | <img height="50" src="resources/media/icons/selenium.png" width="50"/> | <img height="50" src="resources/media/icons/allure.png" width="50"/> | <img height="50" src="resources/media/icons/jenkins.png" width="50"/> | 
 
 ### Автотесты
 
@@ -35,7 +35,7 @@ Sela.UI:
 
 К тестам приложены артефакты: screenshot, video, page source
 
-<img src="resources/media/allurereport2.png">
+<img src="resources/media/allurereport2.png" alt="/">
 
 ### Jenkins
 
@@ -46,3 +46,9 @@ Sela.UI:
 Для запуска автотестов в Jenkins нужно нажать на Build Now
 
 <img src="resources/media/tests.png" alt="/">
+
+### Telegram
+
+Отчет о пройденных тестах приходит в Telegram:
+
+<img src="resources/media/tg.png" alt="/">
