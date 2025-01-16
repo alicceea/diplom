@@ -20,6 +20,10 @@ class PageHandler:
         self.browser.open('/')
         sleep(ConfigureLJ.sleep_wait_medium)
 
+    #
+    @allure.step("Пропускаем тест")
+    def skip_test(self):
+        pass
 
 class PagePost(PageHandler):
 
