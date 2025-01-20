@@ -7,9 +7,7 @@ from selenium.webdriver import Keys
 from livejournal.utils.util import ConfigureLJ
 
 
-# document.evaluate('//*[@data-rd-type="rd-post-actions-popup"]/div/button', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.click()
-
-class PageHandler:
+class PagePost():
     browser: Browser
 
     def __init__(self, browser):
@@ -19,13 +17,6 @@ class PageHandler:
     def open_profile(self):
         self.browser.open('/')
         sleep(ConfigureLJ.sleep_wait_medium)
-
-    #
-    @allure.step("Пропускаем тест")
-    def skip_test(self):
-        pass
-
-class PagePost(PageHandler):
 
     def create_post(self, post):
         with allure.step("Пользователь нажимает кнопку создания"):

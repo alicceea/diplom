@@ -75,6 +75,6 @@ def test_add_any_cloth_to_favorites():
     page_sela.assert_favorites_page()
 
     for favorite_id in favorites_ids:
-        page_sela.assert_cloth_bu_id_in_favorites(favorite_id)
+        page_sela.assert_cloth_in_favorites(favorite_id)
 
     print(favorites_ids)

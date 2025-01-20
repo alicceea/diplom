@@ -12,4 +12,3 @@ class ConfigureLJ:
     login_url = 'http://www.livejournal.com/login.bml'
     sleep_wait_medium = 4
     sleep_wait_short = 0.3
-

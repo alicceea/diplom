@@ -10,8 +10,6 @@ card = products_list + '/ul/li[{number}]'
 favorite_button = card + '//button[contains(@class, "product-card__favorite")]'
 
 
-# document.evaluate('//*[@id="popmechanic-snippet"]//*[@data-popmechanic-close]', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.click()
-
 class PageSela:
 
     def __init__(self, browser: Browser):
@@ -87,6 +85,6 @@ class PageSela:
     def assert_favorites_page(self):
         self.browser.element('//h1[@data-title="Избранное"]').should(have.exact_text("ИЗБРАННОЕ"))
 
-    def assert_cloth_bu_id_in_favorites(self, favorite_id):
+    def assert_cloth_in_favorites(self, favorite_id):
         with allure.step("Проверка товара в избранном"):
             self.browser.element(products_list + f'//button[@data-product_id="{favorite_id}"]').should(be.existing)

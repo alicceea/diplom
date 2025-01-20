@@ -3,7 +3,6 @@ from time import sleep
 import pytest
 from selene import browser
 
-
 from livejournal.utils.util import ConfigureLJ
 from tests.util.config import add_screenshot, add_html, add_video, get_driver, is_local_run
 

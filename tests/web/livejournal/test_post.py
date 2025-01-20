@@ -2,7 +2,7 @@ import allure
 from allure_commons.types import Severity
 from selene import browser
 
-from livejournal.data.test_objects import dog_post, cat_post
+from livejournal.data.post_data_objects import dog_post, cat_post
 from livejournal.pages.pages import PagePost
 from tests.util.config import is_local_run
 
@@ -18,8 +18,8 @@ post_info_update = cat_post()
 @allure.title("Пользователь создает пост")
 def test_create_post(add_login):
     if not is_local_run():
-        page_post.skip_test()
-        return
+        with allure.step("Пропускаем тест"):
+            return
 
     page_post.open_profile()
     page_post.create_post(post_info_create)
@@ -34,8 +34,8 @@ def test_create_post(add_login):
 @allure.title("Пользователь редактирует пост")
 def test_update_post(add_login):
     if not is_local_run():
-        page_post.skip_test()
-        return
+        with allure.step("Пропускаем тест"):
+            return
 
     page_post.open_profile()
     page_post.assert_have_post(post_info_create)
@@ -52,8 +52,8 @@ def test_update_post(add_login):
 @allure.title("Пользователь удаляет пост")
 def test_delete_post(add_login):
     if not is_local_run():
-        page_post.skip_test()
-        return
+        with allure.step("Пропускаем тест"):
+            return
 
     page_post.open_profile()
     page_post.assert_have_not_post(post_info_create)
