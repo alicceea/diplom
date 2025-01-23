@@ -1,4 +1,5 @@
 import allure
+import pytest
 from allure_commons.types import Severity
 from selene import browser
 
@@ -16,11 +17,8 @@ post_info_update = cat_post()
 @allure.label("owner", "alice")
 @allure.feature('Diplom project')
 @allure.title("Пользователь создает пост")
+@pytest.mark.skipif(not is_local_run(), reason="Удаленно не работает :(")
 def test_create_post(add_login):
-    if not is_local_run():
-        with allure.step("Пропускаем тест"):
-            return
-
     page_post.open_profile()
     page_post.create_post(post_info_create)
 
@@ -32,11 +30,8 @@ def test_create_post(add_login):
 @allure.label("owner", "alice")
 @allure.feature('Diplom project')
 @allure.title("Пользователь редактирует пост")
+@pytest.mark.skipif(not is_local_run(), reason="Удаленно не работает :(")
 def test_update_post(add_login):
-    if not is_local_run():
-        with allure.step("Пропускаем тест"):
-            return
-
     page_post.open_profile()
     page_post.assert_have_post(post_info_create)
 
@@ -50,11 +45,8 @@ def test_update_post(add_login):
 @allure.label("owner", "alice")
 @allure.feature('Diplom project')
 @allure.title("Пользователь удаляет пост")
+@pytest.mark.skipif(not is_local_run(), reason="Удаленно не работает :(")
 def test_delete_post(add_login):
-    if not is_local_run():
-        with allure.step("Пропускаем тест"):
-            return
-
     page_post.open_profile()
     page_post.assert_have_not_post(post_info_create)
     page_post.assert_have_post(post_info_update)
